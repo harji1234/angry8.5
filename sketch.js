@@ -83,26 +83,29 @@ function draw(){
 function mouseDragged(){
     //if (gameState!=="launched"){
         Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
-    //}
+ //   }
 }
 
 
 function mouseReleased(){
     slingshot.fly();
-    gameState = "launched";
+   // gameState = "launched";
 }
 
 function keyPressed(){
     if(keyCode === 32){
+        bird.trajectory=[]
+        Matter.Body.setPosition(bird.body, {x: 200 , y: 50});
        slingshot.attach(bird.body);
     }
 }
 
 async function getBackgroundImg(){
-    var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
+    //var response = await fetch("http://worldtimeapi.org/api/timezone/America/Detroit");
+    var response=await fetch("http://worldclockapi.com/api/json/est/now")
     var responseJSON = await response.json();
 
-    var datetime = responseJSON.datetime;
+    var datetime = responseJSON.currentDateTime;
     var hour = datetime.slice(11,13);
     
     if(hour>=0600 && hour<=1900){
